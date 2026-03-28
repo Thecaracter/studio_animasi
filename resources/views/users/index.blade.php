@@ -13,12 +13,14 @@
             </h1>
             <p class="text-gray-400 text-sm mt-2">Kelola pengguna dan izin akses sistem</p>
         </div>
+        @can('create-user')
         <a href="{{ route('users.create-form') }}" class="inline-flex items-center gap-2 bg-gradient-to-r from-orange-600 to-orange-400 text-white px-6 py-3 rounded-lg hover:shadow-lg hover:from-orange-400 hover:to-blue-800 transition-all font-semibold shadow-md">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
             </svg>
             Tambah User
         </a>
+        @endcan
     </div>
 
     {{-- Table Card --}}
@@ -78,13 +80,16 @@
                         </td>
                         <td class="px-6 py-4 text-center">
                             <div class="flex items-center justify-center gap-3">
+                                @can('edit-user')
                                 <a href="{{ route('users.edit-form', $user) }}" class="inline-flex items-center gap-1 px-4 py-2 bg-gray-800/50 text-orange-600 rounded-lg hover:bg-orange-900/30 transition-colors font-semibold text-sm border border-orange-800">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                     </svg>
                                     Edit
                                 </a>
+                                @endcan
                                 @if ($user->id !== auth()->id())
+                                @can('delete-user')
                                 <form method="POST" action="{{ route('users.destroy', $user) }}" class="inline" onsubmit="return confirm('Yakin ingin menghapus user ini?')">
                                     @csrf
                                     @method('DELETE')
@@ -95,6 +100,7 @@
                                         Hapus
                                     </button>
                                 </form>
+                                @endcan
                                 @endif
                             </div>
                         </td>

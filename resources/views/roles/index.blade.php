@@ -4,12 +4,14 @@
 <div class="space-y-6">
     <div class="flex items-center justify-between">
         <h1 class="text-2xl font-bold text-white tracking-tight">Kelola Hak Akses (Roles)</h1>
+        @can('create-role')
         <a href="{{ route('roles.create') }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-orange-600 hover:bg-orange-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-orange-500 transition-colors">
             <svg class="mr-2 -ml-1 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
             </svg>
             Tambah Role
         </a>
+        @endcan
     </div>
 
     @if(session('success'))
@@ -50,14 +52,18 @@
                             </div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            @can('edit-role')
                             <a href="{{ route('roles.edit', $role->id) }}" class="text-indigo-400 hover:text-indigo-300 mr-4 transition-colors">Edit</a>
+                            @endcan
                             
                             @if($role->name !== 'admin')
+                            @can('delete-role')
                             <form action="{{ route('roles.destroy', $role->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Yakin ingin menghapus role ini?');">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-red-400 hover:text-red-300 transition-colors">Hapus</button>
                             </form>
+                            @endcan
                             @else
                             <span class="text-gray-600 inline-block">Baku</span>
                             @endif

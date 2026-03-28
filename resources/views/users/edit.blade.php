@@ -111,9 +111,11 @@
                     <a href="{{ route('users.index') }}" class="flex-1 px-6 py-3 border-2 border-gray-300 rounded-lg hover:bg-gray-800 transition-colors text-center font-semibold text-gray-300">
                         Batal
                     </a>
+                    @can('edit-user')
                     <button type="submit" class="flex-1 bg-gradient-to-r from-orange-600 to-orange-400 text-white px-6 py-3 rounded-lg hover:shadow-lg hover:from-orange-400 hover:to-blue-800 transition-all font-semibold shadow-md">
                         Update User
                     </button>
+                    @endcan
                 </div>
             </form>
         </div>

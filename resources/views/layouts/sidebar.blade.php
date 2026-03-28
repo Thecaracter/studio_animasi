@@ -21,23 +21,30 @@
             <span class="font-medium">Dashboard</span>
         </a>
 
-        {{-- Admin Menu --}}
+        {{-- Admin Menu (Full Access) --}}
         @can('create-user')
         <div class="space-y-2 mt-6">
             <h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest px-4 py-2">Admin Panel</h3>
             <div class="space-y-1">
+                @can('view-users')
                 <a href="{{ route('users.index') }}" class="flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 group {{ request()->routeIs('users.*') ? 'bg-orange-600 shadow-lg' : 'hover:bg-gray-800' }}">
                     <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM9 6a3 3 0 11-6 0 3 3 0 016 0zM3 10a7 7 0 1014 0 7 7 0 01-14 0z"></path>
                     </svg>
                     <span class="font-medium">Kelola User</span>
                 </a>
+                @endcan
+                
+                @can('view-roles')
                 <a href="{{ route('roles.index') }}" class="flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 group {{ request()->routeIs('roles.*') ? 'bg-orange-600 shadow-lg' : 'hover:bg-gray-800' }}">
                     <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
                     </svg>
                     <span class="font-medium">Kelola Hak Akses</span>
                 </a>
+                @endcan
+                
+                @can('view-tasks')
                 <a href="{{ route('tasks.index-admin') }}" class="flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 group {{ request()->routeIs('tasks.index-admin', 'tasks.edit*') ? 'bg-orange-600 shadow-lg' : 'hover:bg-gray-800' }}">
                     <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
@@ -45,8 +52,45 @@
                     </svg>
                     <span class="font-medium">Kelola Tugas</span>
                 </a>
+                @endcan
             </div>
         </div>
+        @endcan
+
+        {{-- View Users Only (Limited Access) --}}
+        @can('view-users')
+        @cannot('create-user')
+        <div class="space-y-2 mt-6">
+            <h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest px-4 py-2">Admin</h3>
+            <div class="space-y-1">
+                <a href="{{ route('users.index') }}" class="flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 group {{ request()->routeIs('users.*') ? 'bg-orange-600 shadow-lg' : 'hover:bg-gray-800' }}">
+                    <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM9 6a3 3 0 11-6 0 3 3 0 016 0zM3 10a7 7 0 1014 0 7 7 0 01-14 0z"></path>
+                    </svg>
+                    <span class="font-medium">Kelola User</span>
+                </a>
+                
+                @can('view-roles')
+                <a href="{{ route('roles.index') }}" class="flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 group {{ request()->routeIs('roles.*') ? 'bg-orange-600 shadow-lg' : 'hover:bg-gray-800' }}">
+                    <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    </svg>
+                    <span class="font-medium">Kelola Hak Akses</span>
+                </a>
+                @endcan
+                
+                @can('view-tasks')
+                <a href="{{ route('tasks.index-admin') }}" class="flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 group {{ request()->routeIs('tasks.index-admin', 'tasks.edit*') ? 'bg-orange-600 shadow-lg' : 'hover:bg-gray-800' }}">
+                    <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
+                        <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 1 1 0 000-2H3a1 1 0 00-1 1v12a1 1 0 001 1h10a1 1 0 001-1V6a1 1 0 100-2 2 2 0 00-2 2v1H4V5zm2 2a1 1 0 100 2h6a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="font-medium">Kelola Tugas</span>
+                </a>
+                @endcan
+            </div>
+        </div>
+        @endcannot
         @endcan
 
         {{-- Editor Menu --}}
@@ -121,18 +165,25 @@
         @can('create-user')
         <div class="space-y-2 mt-6">
             <h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest px-4 py-2">Admin</h3>
+            @can('view-users')
             <a href="{{ route('users.index') }}" class="flex items-center space-x-3 px-4 py-3 rounded-lg transition-all {{ request()->routeIs('users.*') ? 'bg-orange-600 shadow-lg' : 'hover:bg-gray-800' }}">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM9 6a3 3 0 11-6 0 3 3 0 016 0zM3 10a7 7 0 1014 0 7 7 0 01-14 0z"></path>
                 </svg>
                 <span class="font-medium">Kelola User</span>
             </a>
+            @endcan
+            
+            @can('view-roles')
             <a href="{{ route('roles.index') }}" class="flex items-center space-x-3 px-4 py-3 rounded-lg transition-all {{ request()->routeIs('roles.*') ? 'bg-orange-600 shadow-lg' : 'hover:bg-gray-800' }}">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
                 </svg>
                 <span class="font-medium">Kelola Hak Akses</span>
             </a>
+            @endcan
+            
+            @can('view-tasks')
             <a href="{{ route('tasks.index-admin') }}" class="flex items-center space-x-3 px-4 py-3 rounded-lg transition-all {{ request()->routeIs('tasks.index-admin', 'tasks.edit*') ? 'bg-orange-600 shadow-lg' : 'hover:bg-gray-800' }}">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
@@ -140,7 +191,41 @@
                 </svg>
                 <span class="font-medium">Kelola Tugas</span>
             </a>
+            @endcan
         </div>
+        @endcan
+
+        @can('view-users')
+        @cannot('create-user')
+        <div class="space-y-2 mt-6">
+            <h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest px-4 py-2">Admin</h3>
+            <a href="{{ route('users.index') }}" class="flex items-center space-x-3 px-4 py-3 rounded-lg transition-all {{ request()->routeIs('users.*') ? 'bg-orange-600 shadow-lg' : 'hover:bg-gray-800' }}">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM9 6a3 3 0 11-6 0 3 3 0 016 0zM3 10a7 7 0 1014 0 7 7 0 01-14 0z"></path>
+                </svg>
+                <span class="font-medium">Kelola User</span>
+            </a>
+            
+            @can('view-roles')
+            <a href="{{ route('roles.index') }}" class="flex items-center space-x-3 px-4 py-3 rounded-lg transition-all {{ request()->routeIs('roles.*') ? 'bg-orange-600 shadow-lg' : 'hover:bg-gray-800' }}">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                </svg>
+                <span class="font-medium">Kelola Hak Akses</span>
+            </a>
+            @endcan
+            
+            @can('view-tasks')
+            <a href="{{ route('tasks.index-admin') }}" class="flex items-center space-x-3 px-4 py-3 rounded-lg transition-all {{ request()->routeIs('tasks.index-admin', 'tasks.edit*') ? 'bg-orange-600 shadow-lg' : 'hover:bg-gray-800' }}">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
+                    <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 1 1 0 000-2H3a1 1 0 00-1 1v12a1 1 0 001 1h10a1 1 0 001-1V6a1 1 0 100-2 2 2 0 00-2 2v1H4V5zm2 2a1 1 0 100 2h6a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="font-medium">Kelola Tugas</span>
+            </a>
+            @endcan
+        </div>
+        @endcannot
         @endcan
 
         @can('view-assigned-tasks')

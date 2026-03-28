@@ -10,6 +10,10 @@ use Spatie\Permission\Traits\HasRoles;
 
 /**
  * @mixin HasRoles
+ * @method bool hasRole(string|int|array $roles, string|null $guard = null)
+ * @method bool hasPermissionTo(string|int $permission, string|null $guard = null)
+ * @method bool hasAnyPermission(string|int|array $permissions, string|null $guard = null)
+ * @method bool hasAllPermissions(string|int|array $permissions, string|null $guard = null)
  */
 class User extends Authenticatable
 {

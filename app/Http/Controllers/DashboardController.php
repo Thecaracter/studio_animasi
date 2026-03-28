@@ -12,7 +12,7 @@ class DashboardController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if (!$user->hasRole(['admin', 'editor_3d', 'editor_animasi', 'reviewer'])) {
+        if (!$user instanceof User || !$user->hasRole(['admin', 'editor_3d', 'editor_animasi', 'reviewer'])) {
             abort(403, 'Unauthorized access');
         }
 

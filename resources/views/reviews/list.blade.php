@@ -76,12 +76,16 @@
                 </div>
 
                 <div class="flex space-x-3 pt-2">
+                    @can('approve-task')
                     <a href="{{ route('reviews.approve-form', $submission) }}" class="flex-1 bg-success-600 text-white px-4 py-2 rounded-lg hover:bg-success-700 transition-colors text-center font-medium">
                         <i class="fa-solid fa-check"></i> Terima
                     </a>
+                    @endcan
+                    @can('reject-task')
                     <a href="{{ route('reviews.reject-form', $submission) }}" class="flex-1 bg-danger-600 text-white px-4 py-2 rounded-lg hover:bg-danger-700 transition-colors text-center font-medium">
                         <i class="fa-solid fa-xmark"></i> Tolak
                     </a>
+                    @endcan
                 </div>
             </div>
         </div>

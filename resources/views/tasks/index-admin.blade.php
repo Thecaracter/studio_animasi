@@ -9,9 +9,11 @@
             <h1 class="text-3xl font-bold text-white"><i class="fa-solid fa-list-check mr-2"></i>Kelola Tugas</h1>
             <p class="text-sm text-gray-400 mt-1">Kelola semua tugas yang telah dibuat</p>
         </div>
+        @can('create-task')
         <a href="{{ route('tasks.create-form') }}" class="bg-gradient-to-r from-orange-600 to-orange-500 text-white px-4 py-2.5 rounded-lg hover:from-orange-500 hover:to-orange-400 transition-colors font-semibold shadow-lg shadow-orange-500/20">
             <i class="fa-solid fa-plus mr-2"></i>Buat Tugas Baru
         </a>
+        @endcan
     </div>
 
     @if (session('success'))
@@ -100,9 +102,13 @@
                             </td>
                             <td class="px-6 py-3">
                                 <div class="flex items-center space-x-2">
+                                    @can('edit-task')
                                     <a href="{{ route('tasks.edit-form', $task) }}" class="inline-flex items-center px-3 py-1.5 bg-blue-900/30 text-blue-300 rounded hover:bg-blue-900/50 transition-colors text-xs font-medium border border-blue-500/30">
                                         <i class="fa-solid fa-pen-to-square mr-1"></i>Edit
                                     </a>
+                                    @endcan
+                                    
+                                    @can('delete-task')
                                     <form method="POST" action="{{ route('tasks.destroy', $task) }}" class="inline" onsubmit="return confirm('Yakin ingin menghapus tugas ini?')">
                                         @csrf
                                         @method('DELETE')
@@ -110,6 +116,7 @@
                                             <i class="fa-solid fa-trash mr-1"></i>Hapus
                                         </button>
                                     </form>
+                                    @endcan
                                 </div>
                             </td>
                         </tr>

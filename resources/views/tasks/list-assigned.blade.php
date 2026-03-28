@@ -29,12 +29,12 @@
                     <div class="flex items-center space-x-3">
                         @php
                             $statusColor = [
-                                'pending' => 'bg-gray-100 text-gray-200',
-                                'in_progress' => 'bg-primary-100 text-primary-800',
-                                'submitted' => 'bg-warning-100 text-warning-800',
-                                'approved' => 'bg-success-100 text-success-800',
-                                'rejected' => 'bg-danger-100 text-danger-800',
-                            ][$task->status] ?? 'bg-gray-100 text-gray-200';
+                                'pending' => 'bg-gray-700 text-gray-100',
+                                'in_progress' => 'bg-blue-900 text-blue-200',
+                                'submitted' => 'bg-yellow-900 text-yellow-200',
+                                'approved' => 'bg-green-900 text-green-200',
+                                'rejected' => 'bg-red-900 text-red-200',
+                            ][$task->status] ?? 'bg-gray-700 text-gray-100';
                             
                             $statusLabel = [
                                 'pending' => 'Pending',
@@ -101,9 +101,11 @@
 
                 <div class="flex space-x-3 pt-2">
                     @if (!in_array($task->status, ['approved']))
+                        @can('submit-task')
                         <a href="{{ route('tasks.submit-form', $task) }}" class="flex-1 bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors text-center font-medium">
                             Submit Tugas
                         </a>
+                        @endcan
                     @endif
                 </div>
             </div>

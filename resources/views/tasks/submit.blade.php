@@ -60,9 +60,11 @@
                 <a href="{{ route('tasks.list') }}" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-800 transition-colors text-center font-medium text-gray-300">
                     Batal
                 </a>
+                @can('submit-task')
                 <button type="submit" class="flex-1 bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors font-medium">
                     Submit Tugas
                 </button>
+                @endcan
             </div>
         </form>
     </div>

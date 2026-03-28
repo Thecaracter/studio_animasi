@@ -14,7 +14,7 @@ class TaskController extends Controller
     public function indexAdmin()
     {
         $user = Auth::user();
-        abort_unless($user && $user->hasPermissionTo('view-all-tasks'), 403);
+        abort_unless($user instanceof User && $user->hasPermissionTo('view-tasks'), 403);
         
         $tasks = Task::with('assignedBy', 'assignedTo', 'submissions')
             ->orderBy('due_date', 'asc')
@@ -26,7 +26,7 @@ class TaskController extends Controller
     public function createForm()
     {
         $user = Auth::user();
-        abort_unless($user && $user->hasPermissionTo('create-task'), 403);
+        abort_unless($user instanceof User && $user->hasPermissionTo('create-task'), 403);
         $editors = User::whereHas('roles', function($query) {
             $query->whereIn('name', ['editor_3d', 'editor_animasi']);
         })->get();
@@ -37,7 +37,7 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-        abort_unless($user && $user->hasPermissionTo('create-task'), 403);
+        abort_unless($user instanceof User && $user->hasPermissionTo('create-task'), 403);
         
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -58,7 +58,7 @@ class TaskController extends Controller
     public function editForm(Task $task)
     {
         $user = Auth::user();
-        abort_unless($user && $user->hasPermissionTo('edit-task'), 403);
+        abort_unless($user instanceof User && $user->hasPermissionTo('edit-task'), 403);
         
         $editors = User::whereHas('roles', function($query) {
             $query->whereIn('name', ['editor_3d', 'editor_animasi']);
@@ -70,7 +70,7 @@ class TaskController extends Controller
     public function update(Request $request, Task $task)
     {
         $user = Auth::user();
-        abort_unless($user && $user->hasPermissionTo('edit-task'), 403);
+        abort_unless($user instanceof User && $user->hasPermissionTo('edit-task'), 403);
         
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -89,7 +89,7 @@ class TaskController extends Controller
     public function destroy(Task $task)
     {
         $user = Auth::user();
-        abort_unless($user && $user->hasPermissionTo('delete-task'), 403);
+        abort_unless($user instanceof User && $user->hasPermissionTo('delete-task'), 403);
         
         $task->delete();
 
@@ -111,7 +111,7 @@ class TaskController extends Controller
     public function showTask(Task $task)
     {
         $user = Auth::user();
-        abort_unless($user->id === $task->assigned_to_id || $user->hasRole('admin'), 403);
+        abort_unless($user instanceof User && ($user->id === $task->assigned_to_id || $user->hasRole('admin')), 403);
         
         return view('tasks.show', [
             'task' => $task->load('assignedBy', 'submissions'),
@@ -155,7 +155,7 @@ class TaskController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user->hasRole('admin')) {
+        if ($user instanceof User && $user->hasRole('admin')) {
             $tasks = Task::with('assignedBy', 'assignedTo')->get();
         } else {
             $tasks = Task::where('assigned_to_id', $user->id)

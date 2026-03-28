@@ -29,7 +29,11 @@ class RolePermissionSeeder extends Seeder
             'create-task',
             'edit-task',
             'delete-task',
-            'view-all-tasks',
+            'view-tasks',
+            'view-roles',
+            'create-role',
+            'edit-role',
+            'delete-role',
             'assign-task',
             'manage-permissions',
             'view-dashboard',
@@ -58,7 +62,6 @@ class RolePermissionSeeder extends Seeder
             'review-task',
             'approve-task',
             'reject-task',
-            'view-all-tasks',
         ];
 
         foreach ($reviewerPermissions as $permission) {

@@ -53,9 +53,11 @@
             </div>
 
             <div class="pt-5 border-t border-gray-800 flex justify-end">
+                @can('edit-role')
                 <button type="submit" class="inline-flex justify-center py-2.5 px-6 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-orange-500 transition-colors w-full sm:w-auto">
                     Simpan Perubahan
                 </button>
+                @endcan
             </div>
         </form>
     </div>

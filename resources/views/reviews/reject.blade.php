@@ -59,9 +59,11 @@
                 <a href="{{ route('reviews.list') }}" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-800 transition-colors text-center font-medium text-gray-300">
                     Batal
                 </a>
+                @can('reject-task')
                 <button type="submit" class="flex-1 bg-danger-600 text-white px-4 py-2 rounded-lg hover:bg-danger-700 transition-colors font-medium">
                     <i class="fa-solid fa-xmark"></i> Reject Submission
                 </button>
+                @endcan
             </div>
         </form>
     </div>

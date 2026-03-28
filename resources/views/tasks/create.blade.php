@@ -102,9 +102,11 @@
                 <a href="{{ route('dashboard') }}" class="flex-1 px-4 py-2.5 border border-gray-700 bg-gray-900 rounded-lg hover:bg-gray-800 transition-colors text-center font-medium text-gray-300">
                     Batal
                 </a>
+                @can('create-task')
                 <button type="submit" class="flex-1 bg-gradient-to-r from-orange-600 to-orange-500 text-white px-4 py-2.5 rounded-lg hover:from-orange-500 hover:to-orange-400 transition-colors font-semibold shadow-lg shadow-orange-500/20">
                     <i class="fa-solid fa-check mr-2"></i>Buat Tugas
                 </button>
+                @endcan
             </div>
         </form>
     </div>
